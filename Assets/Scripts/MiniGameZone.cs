@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MiniGameZone : MonoBehaviour
 {
     private bool isPlayerInZone = false;
     public GameObject EventUI;
+    
     private void Update()
     {
         if (isPlayerInZone && Input.GetKeyDown(KeyCode.E))
@@ -32,5 +34,10 @@ public class MiniGameZone : MonoBehaviour
             Debug.Log("Player exited");
         }
         EventUI.SetActive(false);
+    }
+
+    void StartMiniGame()
+    {
+        SceneManager.LoadScene("MiniGame");
     }
 }
