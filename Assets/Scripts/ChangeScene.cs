@@ -12,6 +12,8 @@ public class ChangeScene : MonoBehaviour
     public Image image;
     public float fadeDuration;
 
+    private bool isFirstScene = true;
+    
     private void Awake()
     {
         if (instance == null)
@@ -33,7 +35,14 @@ public class ChangeScene : MonoBehaviour
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        StartCoroutine(FadeIn());
+        if (isFirstScene)
+        {
+            isFirstScene = false;
+        }
+        else
+        {
+            StartCoroutine(FadeIn());
+        }
     }
     
     public void FadeToScene(string sceneName)
