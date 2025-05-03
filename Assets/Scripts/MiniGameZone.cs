@@ -13,7 +13,7 @@ public class MiniGameZone : MonoBehaviour
     {
         if (isPlayerInZone && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("Play Start");
+            ChangeScene.instance.FadeToScene("MiniGame");
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -34,10 +34,5 @@ public class MiniGameZone : MonoBehaviour
             Debug.Log("Player exited");
         }
         EventUI.SetActive(false);
-    }
-
-    void StartMiniGame()
-    {
-        SceneManager.LoadScene("MiniGame");
     }
 }

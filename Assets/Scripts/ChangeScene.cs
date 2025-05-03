@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -42,6 +43,8 @@ public class ChangeScene : MonoBehaviour
     
     private IEnumerator FadeOut(string sceneName)
     {
+        image.gameObject.SetActive(true);
+        
         float timeElapsed = 0;
 
         while (timeElapsed < fadeDuration)
@@ -58,9 +61,10 @@ public class ChangeScene : MonoBehaviour
     
     private IEnumerator FadeIn()
     {
+        image.gameObject.SetActive(true);
+        
         float timeElapsed = 0f;
-
-        // 페이드 인
+        
         while (timeElapsed < fadeDuration)
         {
             timeElapsed += Time.deltaTime;
@@ -70,5 +74,7 @@ public class ChangeScene : MonoBehaviour
         }
 
         image.color = new Color(0, 0, 0, 0); 
+        
+        image.gameObject.SetActive(false);
     }
 }
