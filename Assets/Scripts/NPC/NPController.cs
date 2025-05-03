@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class NPController : MonoBehaviour
 {
+    public Transform player;
+    private SpriteRenderer NPCSpriteRenderer;
+    
     public GameObject NPCUI;
     public TextMeshProUGUI dialogText;
     
@@ -14,6 +17,25 @@ public class NPController : MonoBehaviour
     private void Start()
     {
         NPCUI.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        NPCSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (player != null)
+        {
+            Vector3 direction = player.position - transform.position;
+
+            if (direction.x > 0)
+            {
+                NPCSpriteRenderer.flipX = false;
+            }
+            else if (direction.x < 0)
+            {
+                NPCSpriteRenderer.flipX = true;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
