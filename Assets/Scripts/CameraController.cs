@@ -22,12 +22,13 @@ public class CameraController : MonoBehaviour
         
         // 위에서 구했던 위치차이를 끝까지 유지 (스토킹)
         Vector3 desiredPosition = target.position + offset;
-        // Lerp 사용하여 목표지점까지 부드럽게 이동
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         
         // 최대, 최소 범위 밖으로 못벗어나게하기
         desiredPosition.x = Mathf.Clamp(desiredPosition.x, minBounds.x, maxBounds.x);
         desiredPosition.y = Mathf.Clamp(desiredPosition.y, minBounds.y, maxBounds.y);
+
+        // Lerp 사용하여 목표지점까지 부드럽게 이동
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         
         transform.position = smoothedPosition;
     }

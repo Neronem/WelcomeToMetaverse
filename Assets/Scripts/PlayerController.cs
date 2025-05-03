@@ -6,8 +6,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    public float moveSpeed = 5f;
     private Rigidbody2D _rigidbody;
+    private Animator _animator;
+    
+    public float moveSpeed = 5f;
     private Vector2 movement;
     
     // Start is called before the first frame update
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -31,6 +34,9 @@ public class PlayerController : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+        
+        bool isMoving = movement != Vector2.zero;
+        _animator.SetBool("IsMove", isMoving);
     }
 
     private void FixedUpdate()
