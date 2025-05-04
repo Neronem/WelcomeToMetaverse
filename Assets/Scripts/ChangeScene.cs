@@ -63,7 +63,7 @@ public class ChangeScene : MonoBehaviour
 
         while (timeElapsed < fadeDuration)
         {
-            timeElapsed += Time.deltaTime;
+            timeElapsed += Time.unscaledDeltaTime;
             float alpha = Mathf.Lerp(0, 1, timeElapsed / fadeDuration);
             image.color = new Color(0, 0, 0, alpha);
             yield return null; // Update랑 비슷하게 한프레임씩 실행되게해줌
@@ -79,7 +79,7 @@ public class ChangeScene : MonoBehaviour
         
         while (timeElapsed < fadeDuration)
         {
-            timeElapsed += Time.deltaTime;
+            timeElapsed += Time.unscaledDeltaTime;
             float alpha = Mathf.Lerp(1, 0, timeElapsed / fadeDuration);
             image.color = new Color(0, 0, 0, alpha); 
             yield return null; 

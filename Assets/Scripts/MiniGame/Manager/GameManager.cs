@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     private int currentScore = 0;
+    public static bool isGameRestarted = false;
     
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public void ReStartGame()
     {
+        isGameRestarted = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

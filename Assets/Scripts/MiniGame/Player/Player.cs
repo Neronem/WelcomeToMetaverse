@@ -8,10 +8,14 @@ public class Player : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rigidbody;
 
+    public float startX;
+    public float playerWalked = 0f;
+    public float bestPlayerWalked = 0f;
+    
     public float startSpeed = 2f;
     public float moveSpeed = 0.2f;
     public float currentSpeed;
-
+    
     public float jumpForce = 7f;
     private int jumpCount = 0;
     public int maxJumpCount = 2;
@@ -21,27 +25,41 @@ public class Player : MonoBehaviour
     
     public bool IMTHEGOD = false;
     
+    private const string BestScoreKey =  "BestScore";
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         currentSpeed = startSpeed;
+        
+        startX = transform.position.x;
+        
+        bestPlayerWalked = PlayerPrefs.GetFloat(BestScoreKey, 0);
     }
 
     private void Update()
     {
         if (isDead)
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            // 게임 오버
+            UpdateScore();
+            UIManager.instance.GameOverUIAppear();
+            if (Input.GetKeyDown(KeyCode.Space))
             {
+                UIManager.instance.GameOverUIDisappear();
                 GameManager.instance.ReStartGame();
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                ChangeScene.instance.FadeToScene("Metaverse");
             }
         }
         else
         {
             currentSpeed += Time.deltaTime * moveSpeed;
             rigidbody.velocity = new Vector2(currentSpeed, rigidbody.velocity.y);
-
+            playerWalked = transform.position.x - startX;
+            
             if (!IMTHEGOD)
             {
                 if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumpCount)
@@ -97,6 +115,16 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGround = false;
+        }
+    }
+
+    void UpdateScore()
+    {
+        if (bestPlayerWalked < playerWalked)
+        {
+            bestPlayerWalked = playerWalked;
+            
+            PlayerPrefs.SetFloat(BestScoreKey, bestPlayerWalked);
         }
     }
 }
