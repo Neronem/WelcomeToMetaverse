@@ -19,7 +19,9 @@ public class ChangeScene : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            GameObject fadeInCanvas = image.transform.root.gameObject;
             DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(fadeInCanvas.gameObject);
             SceneManager.sceneLoaded += OnSceneLoad;
         }
         else
@@ -41,6 +43,10 @@ public class ChangeScene : MonoBehaviour
         }
         else
         {
+            if (image == null)
+            {
+                image = FindObjectOfType<Image>();
+            }
             StartCoroutine(FadeIn());
         }
     }
@@ -52,8 +58,7 @@ public class ChangeScene : MonoBehaviour
     
     private IEnumerator FadeOut(string sceneName)
     {
-        image.gameObject.SetActive(true);
-        
+        image.gameObject.SetActive(true);        
         float timeElapsed = 0;
 
         while (timeElapsed < fadeDuration)
@@ -70,8 +75,6 @@ public class ChangeScene : MonoBehaviour
     
     private IEnumerator FadeIn()
     {
-        image.gameObject.SetActive(true);
-        
         float timeElapsed = 0f;
         
         while (timeElapsed < fadeDuration)

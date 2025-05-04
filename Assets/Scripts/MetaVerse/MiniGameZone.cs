@@ -8,7 +8,12 @@ public class MiniGameZone : MonoBehaviour
 {
     private bool isPlayerInZone = false;
     public GameObject EventUI;
-    
+
+    private void Awake()
+    {
+        EventUI.SetActive(false);
+    }
+
     private void Update()
     {
         if (isPlayerInZone && Input.GetKeyDown(KeyCode.E))
@@ -23,7 +28,11 @@ public class MiniGameZone : MonoBehaviour
             isPlayerInZone = true;
             Debug.Log("Player entered");
         }
-        EventUI.SetActive(true);
+
+        if (EventUI != null)
+        {
+            EventUI.SetActive(true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -33,6 +42,9 @@ public class MiniGameZone : MonoBehaviour
             isPlayerInZone = false;
             Debug.Log("Player exited");
         }
-        EventUI.SetActive(false);
+        
+        if(EventUI != null){
+            EventUI.SetActive(false);
+        }
     }
 }
