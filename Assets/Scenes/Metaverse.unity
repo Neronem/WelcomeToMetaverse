@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIOfReturn: {fileID: 1550597650}
   BestScoreText: {fileID: 1465708654}
-  TalkAboutYOu: {fileID: 739592609}
+  TalkAboutYou: {fileID: 739592609}
 --- !u!1 &459494489
 GameObject:
   m_ObjectHideFlags: 0
