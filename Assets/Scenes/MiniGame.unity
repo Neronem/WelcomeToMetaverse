@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 183447584}
   m_Layer: 0
   m_Name: Background_Floor (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 550269136}
   m_Layer: 0
   m_Name: Background_Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1141,6 +1141,8 @@ MonoBehaviour:
   startSpeed: 2
   moveSpeed: 0.2
   currentSpeed: 0
+  jumpForce: 3
+  maxJumpCount: 2
 --- !u!1 &647861948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,7 +1159,7 @@ GameObject:
   - component: {fileID: 647861953}
   m_Layer: 0
   m_Name: Background_Floor (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3908,7 +3910,7 @@ GameObject:
   - component: {fileID: 1035641207}
   m_Layer: 0
   m_Name: Background_Floor (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9127,7 +9129,7 @@ GameObject:
   - component: {fileID: 1576590125}
   m_Layer: 0
   m_Name: Background_Floor (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
