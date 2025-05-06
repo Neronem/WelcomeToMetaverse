@@ -29,7 +29,7 @@ public class ChangeScene : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoad;

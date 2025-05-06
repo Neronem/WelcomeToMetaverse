@@ -23,22 +23,11 @@ public class PlayerController : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
-        }
-    }
-
-    void Start()
-    {
-        if (PlayerSkinSelect.instance.isPlayerSelected)
-        {
-            _rigidbody = GetComponent<Rigidbody2D>();
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            _animator = GetComponentInChildren<Animator>();
-            
-            transform.position = new Vector3(0, 0.4f, 0);
         }
     }
 
@@ -94,9 +83,9 @@ public class PlayerController : MonoBehaviour
         isStopped = false;
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
