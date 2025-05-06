@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     public Vector2 minBounds, maxBounds; // 카메라 이동의 최소, 최대 좌표
 
     private void Start()
-    { // 현재 타겟에서 카메라까지의 위치 차이 계산
+    {
         offset = new Vector3(0.45f, -0.4f, -10f);
     }
 
