@@ -26,6 +26,12 @@ public class Player : MonoBehaviour
     public bool IMTHEGOD = false;
     
     private const string BestScoreKey =  "BestScore";
+    
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip landSound;
+    public AudioClip deathSound;
+    
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -35,6 +41,8 @@ public class Player : MonoBehaviour
         startX = transform.position.x;
         
         bestPlayerWalked = PlayerPrefs.GetFloat(BestScoreKey, 0);
+        
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -71,7 +79,7 @@ public class Player : MonoBehaviour
                     {
                         animator.SetBool("IsDoubleJump", true);
                     }
-
+                    audioSource.PlayOneShot(jumpSound);
                     jumpCount++;
                 }
             }
@@ -85,7 +93,8 @@ public class Player : MonoBehaviour
                     {
                         animator.SetBool("IsDoubleJump", true);
                     }
-
+                    
+                    audioSource.PlayOneShot(jumpSound);
                     jumpCount++;
                 }
             }
@@ -101,10 +110,13 @@ public class Player : MonoBehaviour
             animator.SetBool("IsDoubleJump", false);
             isGround = true;
             jumpCount = 0;
+            
+            audioSource.PlayOneShot(landSound);
         }
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             isDead = true;
+            audioSource.PlayOneShot(deathSound);
             animator.SetTrigger("IsDie");
             GameManager.instance.GameOver();
         }
