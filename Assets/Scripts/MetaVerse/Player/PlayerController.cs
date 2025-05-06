@@ -25,16 +25,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isStopped)
-        {
-            _animator.SetBool("IsMove", false);
-            return;
-        }
-        
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
-        
-        if (movement.x >= 0)
+    
+        if (movement.x > 0)
         {
             spriteRenderer.flipX = false;
         }
