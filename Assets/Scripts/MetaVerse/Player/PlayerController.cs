@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+    
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D _rigidbody;
     private Animator _animator;
@@ -13,9 +16,33 @@ public class PlayerController : MonoBehaviour
     private Vector2 movement;
     
     public bool isStopped = false;
-        
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
+    {
+        if (PlayerSkinSelect.instance.isPlayerSelected)
+        {
+            _rigidbody = GetComponent<Rigidbody2D>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            _animator = GetComponentInChildren<Animator>();
+            
+            transform.position = new Vector3(0, 0.4f, 0);
+        }
+    }
+
+    public void Init()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -25,6 +52,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        string currentScene = SceneManager.GetActiveScene().name;
+    
+        if (currentScene == "MiniGame")
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        if (!PlayerSkinSelect.instance.isPlayerSelected) return;
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
     
@@ -43,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!PlayerSkinSelect.instance.isPlayerSelected) return;
         if (isStopped) return;
         _rigidbody.velocity = movement.normalized * moveSpeed;
     }
@@ -57,4 +93,28 @@ public class PlayerController : MonoBehaviour
     {
         isStopped = false;
     }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MiniGame")
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+       
+            CameraController cameraController = FindObjectOfType<CameraController>();
+            if (cameraController != null)
+            {
+                cameraController.SetTarget(transform);
+            }
+        }
+    }
+
 }

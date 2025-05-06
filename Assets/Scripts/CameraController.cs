@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     { // 현재 타겟에서 카메라까지의 위치 차이 계산
-        offset = transform.position - target.position;
+        offset = new Vector3(0.45f, -0.4f, -10f);
     }
 
     private void LateUpdate()
@@ -31,5 +31,10 @@ public class CameraController : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         
         transform.position = smoothedPosition;
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
     }
 }
