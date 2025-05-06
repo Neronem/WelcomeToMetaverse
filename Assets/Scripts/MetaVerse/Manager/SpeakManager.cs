@@ -18,6 +18,9 @@ public class SpeakManager : MonoBehaviour
 
     private bool isTaking = false; // 대화하고있는지 여부 체크
 
+    public AudioClip dialogSFX;
+    private AudioSource audioSource;
+
     private void Awake()
     {
         if (instance == null)
@@ -34,6 +37,7 @@ public class SpeakManager : MonoBehaviour
     private void Start()
     {
         playerController = GameObject.FindObjectOfType<PlayerController>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -64,6 +68,11 @@ public class SpeakManager : MonoBehaviour
         {
             dialogText.text = dialogLines[currentLine];
             currentLine++;
+
+            if (dialogSFX != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(dialogSFX);
+            }
         }
         else
         {
