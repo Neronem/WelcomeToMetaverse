@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
+    public GameObject Vehicle;
+    public SpriteRenderer[] characterSprites;
     
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D _rigidbody;
@@ -15,8 +17,9 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     private Vector2 movement;
     
-    public bool isStopped = false;
-
+    private bool isStopped = false;
+    private bool isRiding = false;
+    
     private void Awake()
     {
         if (instance == null)
@@ -49,6 +52,36 @@ public class PlayerController : MonoBehaviour
             return;
         }
         if (!PlayerSkinSelect.instance.isPlayerSelected) return;
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (isRiding)
+            {
+                foreach (SpriteRenderer sprite in characterSprites)
+                {
+                    sprite.transform.position += new Vector3(0, -1.5f, 0);
+                }
+                Vehicle.SetActive(false);
+                isRiding = false;
+                moveSpeed -= 10f;
+            }
+            else
+            {
+                foreach (SpriteRenderer sprite in characterSprites)
+                {
+                    sprite.transform.position += new Vector3(0, 1.5f, 0);
+                }
+                Vehicle.SetActive(true);
+                isRiding = true;
+                moveSpeed += 10f;
+            }
+        }
+        
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
     
