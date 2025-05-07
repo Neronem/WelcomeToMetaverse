@@ -36,9 +36,7 @@
 
 
 # GitHub Commit Convention
-add: 파일 추가
-
-feat: 새로운 기능 추가
+add: 기능 추가
 
 fix: 버그 수정
 
